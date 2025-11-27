@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("api/v1")
 public class UsuarioController {
 
-    @PostMapping("home/admin")
+    @PostMapping("admin/home")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> adminHome() {
         return ResponseEntity.ok("Bienvenido Admin");

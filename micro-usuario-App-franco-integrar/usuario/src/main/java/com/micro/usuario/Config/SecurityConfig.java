@@ -29,23 +29,23 @@ public class SecurityConfig {
                 // *** IMPORTANTE PARA H2 ***
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .authorizeHttpRequests(auth -> auth
-                        // rutas públicas (incluimos h2-console aquí también)
-                        .requestMatchers(
-                                "/h2-console/**",
-                                "/auth/login",
-                                "/auth/register",
-                                "/debug/usuarios",
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html"
-                        ).permitAll()
-                        // cualquier otra ruta requiere autenticación
-                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                // rutas públicas (incluimos h2-console aquí también)
+                .requestMatchers(
+                        "/h2-console/**",
+                        "/auth/login",
+                        "/auth/register",
+                        "/debug/usuarios",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html"
+                ).permitAll()
+                // cualquier otra ruta requiere autenticación
+                .requestMatchers("/api/v1/admin/**").hasRole("ROLE_ADMIN")
+                .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(
-                        org.springframework.security.config.http.SessionCreationPolicy.STATELESS
-                ))
+                org.springframework.security.config.http.SessionCreationPolicy.STATELESS
+        ))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

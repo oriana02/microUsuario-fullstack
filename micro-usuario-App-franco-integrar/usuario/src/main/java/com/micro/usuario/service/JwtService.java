@@ -14,7 +14,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Claims;
+
 import java.util.function.Function;
+import com.micro.usuario.model.User;
 
 @Service
 public class JwtService {
@@ -28,13 +30,15 @@ public class JwtService {
     @Value("${jwt.refresh-expiration}")
     private long REFRESH_EXPIRATION;
 
-    public String getToken(UserDetails user) {
-        //Agregar el rol al token
+    //corregido
+    public String getToken(UserDetails userDetails) {
+        User user = (User) userDetails;
         Map<String, Object> extraClaims = new HashMap<>();
-        extraClaims.put("role", user.getAuthorities().stream().findFirst().get().getAuthority());
-        return getToken(extraClaims, user);
+        extraClaims.put("role", user.getRole().name());
+        extraClaims.put("nombre", user.getNombre());
+        extraClaims.put("apellido", user.getApellido());
 
-        
+        return getToken(extraClaims, userDetails);
     }
 
     public String getToken(Map<String, Object> extraClaims, UserDetails user) {
