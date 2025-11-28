@@ -40,7 +40,7 @@ public class SecurityConfig {
                         "/swagger-ui.html"
                 ).permitAll()
                 // cualquier otra ruta requiere autenticación
-                .requestMatchers("/api/v1/admin/**").hasRole("ROLE_ADMIN")
+                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(
