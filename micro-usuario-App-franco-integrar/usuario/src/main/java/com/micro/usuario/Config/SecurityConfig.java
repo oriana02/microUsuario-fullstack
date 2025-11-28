@@ -29,7 +29,7 @@ public class SecurityConfig {
                 // *** IMPORTANTE PARA H2 ***
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .authorizeHttpRequests(auth -> auth
-                // rutas públicas (incluimos h2-console aquí también)
+                // 1. rutas públicas (sin autenticación)
                 .requestMatchers(
                         "/h2-console/**",
                         "/auth/login",
@@ -39,8 +39,11 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/swagger-ui.html"
                 ).permitAll()
-                // cualquier otra ruta requiere autenticación
-                .requestMatchers("/api/v1/admin/**").hasRole("ROLE_ADMIN")
+                // 2.Endpoints de usuario (requiere rol USER)
+                .requestMatchers("/api/v1/user/**").hasRole("USER")
+                // 3. Endpoints de admin (requiere rol ADMIN)
+                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                // 4. cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(

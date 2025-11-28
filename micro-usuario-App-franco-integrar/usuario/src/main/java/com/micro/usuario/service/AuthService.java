@@ -10,8 +10,8 @@ import com.micro.usuario.model.AuthResponse;
 import com.micro.usuario.model.DTOs.LoginRequestDTO;
 import com.micro.usuario.model.DTOs.RegisterRequestDTO;
 import com.micro.usuario.model.Role;
-import com.micro.usuario.repository.UsuarioRepository;
 import com.micro.usuario.model.User;
+import com.micro.usuario.repository.UsuarioRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,7 +36,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .nombre(request.getNombre())
                 .apellido(request.getApellido())
-                .role(Role.ROLE_USER)
+                .role(Role.USER) // CORREGIDO: sin prefijo ROLE_
                 .build();
         usuarioRepository.save(user);
 
