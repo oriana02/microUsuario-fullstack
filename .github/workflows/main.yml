@@ -44,7 +44,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/ubuntu/carpetaPerfume/micro-usuario-App-franco-integrar/
+            cd /home/ubuntu/carpetaPerfume/micro-usuario-App-franco-integrar/usuario/
             # Comando de depuración: Listar archivos para asegurar que docker-compose.yml está ahí
             echo "Archivos en la carpeta:"
             ls -la
