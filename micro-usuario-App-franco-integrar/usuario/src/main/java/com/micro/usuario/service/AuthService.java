@@ -45,6 +45,26 @@ public class AuthService {
                 .build();
     }
 
+    public AuthResponse registerAdmin(RegisterRequestDTO request) {
+        // Verificar si el usuario ya existe
+        if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("El email ya esta registrado");
+        }
+
+        User user = User.builder()
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .nombre(request.getNombre())
+                .apellido(request.getApellido())
+                .role(Role.ADMIN) // ← ADMIN en lugar de USER
+                .build();
+        usuarioRepository.save(user);
+
+        return AuthResponse.builder()
+                .token(jwtService.getToken(user))
+                .build();
+    }
+
     public AuthResponse login(LoginRequestDTO request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getEmail(),

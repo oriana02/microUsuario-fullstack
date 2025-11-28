@@ -33,4 +33,10 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
     }
 
+    @PostMapping("register/admin")
+    public ResponseEntity<AuthResponse> registerAdmin(@Valid @RequestBody RegisterRequestDTO request) {
+        return ResponseEntity.ok(authService.registerAdmin(request));
+
+    }
+
 }
