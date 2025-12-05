@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.micro.usuario.model.AuthResponse;
 import com.micro.usuario.model.DTOs.LoginRequestDTO;
 import com.micro.usuario.model.DTOs.RegisterRequestDTO;
+import com.micro.usuario.model.Role;
 import com.micro.usuario.repository.UsuarioRepository;
 import com.micro.usuario.model.User;
 
@@ -35,7 +36,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .nombre(request.getNombre())
                 .apellido(request.getApellido())
-                .role(request.getRol())
+                .role(request.getRole() != null ? request.getRole() : Role.USER)
                 .build();
         usuarioRepository.save(user);
 
