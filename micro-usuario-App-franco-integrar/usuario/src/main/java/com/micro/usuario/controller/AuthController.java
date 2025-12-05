@@ -1,7 +1,6 @@
 package com.micro.usuario.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +10,7 @@ import com.micro.usuario.model.AuthResponse;
 import com.micro.usuario.model.DTOs.LoginRequestDTO;
 import com.micro.usuario.model.DTOs.RegisterRequestDTO;
 import com.micro.usuario.service.AuthService;
+import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +28,7 @@ public class AuthController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<AuthResponse> register(@Validated @RequestBody RegisterRequestDTO request) {
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequestDTO request) {
 
         return ResponseEntity.ok(authService.register(request));
     }

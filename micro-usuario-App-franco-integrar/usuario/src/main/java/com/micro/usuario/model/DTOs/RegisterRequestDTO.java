@@ -1,5 +1,7 @@
 package com.micro.usuario.model.DTOs;
 
+import com.micro.usuario.model.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +17,6 @@ public class RegisterRequestDTO {
     String apellido;
     String email;
     String password;
+    Role rol;
 
 }
